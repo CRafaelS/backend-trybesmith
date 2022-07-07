@@ -3,4 +3,11 @@ import smithModels from '../models/smithModels';
 
 const getProducts = (): Promise<ISmith[]> => smithModels.getAll();
 
-export default { getProducts };
+const newProducts = async (product:ISmith): Promise<ISmith> => {
+  const { insertId } = await smithModels.create(product);
+  const newId = product;
+  newId.id = insertId;
+  return product;
+};
+
+export default { getProducts, newProducts };
